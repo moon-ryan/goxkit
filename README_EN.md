@@ -1,28 +1,28 @@
 # goxkit
 
-Go 常用工具库合集，提供时间处理、随机数生成、数据类型转换等轻量级扩展包。
+A collection of commonly used Go utility packages, providing lightweight extensions for time handling, random number generation, data type conversion, and more.
 
-## 安装
+## Installation
 
 ```bash
 go get github.com/moon-ryan/goxkit
 ```
 
-## 功能模块
+## Modules
 
-| 包名 | 说明 |
+| Package | Description |
 | --- | --- |
-| [timex](#timex) | 时间处理与格式化扩展 |
-| [randx](#randx) | 随机数/随机字符串生成 |
-| [convert](#convert) | 数据类型转换 |
+| [timex](#timex) | Time formatting and calculation utilities |
+| [randx](#randx) | Random number and string generation |
+| [convert](#convert) | Data type conversion utilities |
 
 ## timex
 
-时间处理扩展包，封装常用日期时间计算与格式化方法。
+Time handling utilities that wrap common date/time formatting and calculation methods.
 
-### 常量
+### Constants
 
-| 常量 | 格式 |
+| Constant | Format |
 | --- | --- |
 | `LayoutDate` | `2006-01-02` |
 | `LayoutTime` | `15:04:05` |
@@ -30,7 +30,7 @@ go get github.com/moon-ryan/goxkit
 | `LayoutISO8601` | `2006-01-02T15:04:05Z07:00` |
 | `LayoutRFC3339` | `time.RFC3339` |
 
-### 格式化
+### Formatting
 
 ```go
 t := time.Now()
@@ -38,11 +38,11 @@ timex.FormatDate(t)     // 2026-07-19
 timex.FormatTime(t)     // 10:30:00
 timex.FormatDateTime(t) // 2026-07-19 10:30:00
 timex.FormatISO8601(t)  // 2026-07-19T10:30:00+08:00
-timex.WeekdayName(t)    // 周六
+timex.WeekdayName(t)    // Saturday (Chinese locale returns "周六")
 timex.WeekdayNameEN(t)  // Saturday
 ```
 
-### 解析
+### Parsing
 
 ```go
 t, err := timex.ParseDate("2026-07-19")
@@ -50,11 +50,11 @@ t, err = timex.ParseDateTime("2026-07-19 10:30:00")
 t, err = timex.ParseISO8601("2026-07-19T10:30:00+08:00")
 t = timex.MustParseDateTime("2026-07-19 10:30:00")
 
-// 自动识别常见格式
+// Automatically detect common formats
 t, err = timex.Parse("2026-07-19 10:30")
 ```
 
-### 日期计算
+### Date Calculation
 
 ```go
 now := time.Now()
@@ -65,8 +65,8 @@ timex.Tomorrow()
 
 timex.StartOfDay(now)
 timex.EndOfDay(now)
-timex.StartOfWeek(now)   // 本周一 00:00:00
-timex.EndOfWeek(now)     // 本周日 23:59:59
+timex.StartOfWeek(now)   // Monday 00:00:00 of the current week
+timex.EndOfWeek(now)     // Sunday 23:59:59 of the current week
 timex.StartOfMonth(now)
 timex.EndOfMonth(now)
 timex.StartOfYear(now)
@@ -84,7 +84,7 @@ timex.SubDays(t1, t2)
 timex.Age(birthDate)
 ```
 
-### 判断
+### Checks
 
 ```go
 timex.IsWeekend(t)
@@ -99,7 +99,7 @@ timex.IsSunday(t)
 timex.Between(t, start, end)
 ```
 
-### 时间戳
+### Timestamps
 
 ```go
 timex.Timestamp(t)
@@ -108,7 +108,7 @@ timex.TimestampMilli(t)
 
 ## randx
 
-随机数生成工具包，基于标准库 `math/rand`。
+Random number generation utilities, based on the standard library `math/rand`.
 
 ```go
 randx.Int(100)              // [0, 100)
@@ -116,19 +116,19 @@ randx.IntRange(10, 20)      // [10, 20)
 randx.Float64()             // [0.0, 1.0)
 randx.Bool()                // true / false
 
-randx.String(10)            // 10 位随机字母数字字符串
+randx.String(10)            // 10-character random alphanumeric string
 randx.StringWithCharset(8, "abc")
-randx.Hex(4)                // 8 位十六进制字符串
+randx.Hex(4)                // 8-character random hex string
 
-randx.Choice([]int{1,2,3})  // 随机返回一个元素
+randx.Choice([]int{1,2,3})  // Return a random element
 
 s := []int{1,2,3,4,5}
-randx.Shuffle(s)            // 原地打乱切片
+randx.Shuffle(s)            // Shuffle the slice in place
 ```
 
 ## convert
 
-数据类型转换工具包，支持任意类型到常见类型的安全转换。
+Data type conversion utilities, supporting safe conversion from any type to common types.
 
 ```go
 convert.ToString(v)
@@ -144,7 +144,7 @@ convert.MustToFloat64(v)
 convert.MustToBool(v)
 ```
 
-## 测试
+## Testing
 
 ```bash
 go test ./...
